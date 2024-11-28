@@ -59,9 +59,11 @@ function App() {
     return (
         <>
             <main className="container bg-slate-900 text-slate-100 min-h-screen">
-                <section className="flex flex-col gap-8 py-16 ">
-                    <h2 className="text-5xl uppercase font-bold text-center tracking-widest">password generator</h2>
-                    <div className="w-96 mx-auto flex flex-col gap-4">
+                <section className="flex flex-col gap-8 max-sm:gap-20 py-16 ">
+                    <h2 className="text-4xl sm:text-5xl uppercase font-bold text-center tracking-widest">
+                        random password generator
+                    </h2>
+                    <div className="w-full sm:w-96 mx-auto flex flex-col gap-4 max-sm:gap-12">
                         <div className="flex border border-spacing-2 border-slate-100 rounded-lg overflow-hidden">
                             <input
                                 ref={inputRef}
@@ -80,7 +82,7 @@ function App() {
                         </div>
                         <SlideInNotifications notifications={notifications} removeNotif={removeNotif} />
 
-                        <div>
+                        <div className="flex flex-col gap-4">
                             <div className="flex gap-4">
                                 <label htmlFor="range">Range</label>
                                 <input
