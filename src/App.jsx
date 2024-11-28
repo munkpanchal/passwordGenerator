@@ -1,8 +1,20 @@
 import { useRef, useCallback, useEffect, useState } from "react";
+import SlideInNotifications from "./Notification.jsx";
 
 function App() {
+    const [notification, setNotification] = useState(false);
     const [length, setLength] = useState(6);
     const [password, setPassword] = useState("");
+
+    const [notifications, setNotifications] = useState([]);
+
+    const addNotification = () => {
+        setNotifications((prev) => [...prev, { id: Math.random(), text: "Password Copied successfully!" }]);
+    };
+
+    const removeNotif = (id) => {
+        setNotifications((prev) => prev.filter((notif) => notif.id !== id));
+    };
 
     const [options, setOptions] = useState({
         allowNum: false,
@@ -13,10 +25,11 @@ function App() {
 
     function handleOption(option) {
         setOptions((prev) => ({ ...prev, [option]: !prev[option] }));
+        setNotification(true);
     }
-
     function handleCopy() {
         window.navigator.clipboard.writeText(password);
+        addNotification();
     }
 
     const generatePass = useCallback(() => {
@@ -54,10 +67,14 @@ function App() {
                                 value={password}
                                 placeholder="Start typing..."
                             />
-                            <button className="w-max p-4 py-2 uppercase font-bold tracking-wide" onClick={handleCopy}>
+                            <button
+                                className="w-max p-4 py-2 uppercase font-bold tracking-wide active:scale-75"
+                                onClick={handleCopy}
+                            >
                                 copy
                             </button>
                         </div>
+                        <SlideInNotifications notifications={notifications} removeNotif={removeNotif} />
 
                         <div>
                             <div className="flex gap-4">
