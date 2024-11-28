@@ -7,11 +7,15 @@ function App() {
     const [password, setPassword] = useState("");
 
     const [notifications, setNotifications] = useState([]);
-
     const addNotification = () => {
-        setNotifications((prev) => [...prev, { id: Math.random(), text: "Password Copied successfully!" }]);
+        setNotifications((prev) => {
+            // Remove the oldest notification if the max limit (5) is reached
+            if (prev.length >= 5) {
+                return [...prev.slice(1), { id: Math.random(), text: "Password Copied successfully!" }];
+            }
+            return [...prev, { id: Math.random(), text: "Password Copied successfully!" }];
+        });
     };
-
     const removeNotif = (id) => {
         setNotifications((prev) => prev.filter((notif) => notif.id !== id));
     };
